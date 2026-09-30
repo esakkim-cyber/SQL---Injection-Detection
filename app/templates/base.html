@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SQL Injection Detection and Prevention System{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">SQL</div>
+        <div>
+          <p class="eyebrow">Information Security</p>
+          <h1>SQLi Shield</h1>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="{{ url_for('main.index') }}" class="nav-link">Overview</a>
+        <a href="{{ url_for('main.login') }}" class="nav-link">Login Demo</a>
+        <a href="{{ url_for('main.playground') }}" class="nav-link">Detection Playground</a>
+        <a href="{{ url_for('main.attack_lab') }}" class="nav-link">Attack Lab</a>
+        <a href="{{ url_for('main.dashboard') }}" class="nav-link">Dashboard</a>
+        <a href="{{ url_for('main.alerts') }}" class="nav-link">Alerts</a>
+        <a href="{{ url_for('main.documentation') }}" class="nav-link">Docs</a>
+      </nav>
+      <div class="sidebar-card">
+        <p class="eyebrow">Safe Lab Notice</p>
+        <p>This project demonstrates SQL injection only against its own seeded demo database.</p>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Final Project</p>
+          <h2>{% block page_heading %}SQL Injection Detection and Prevention System{% endblock %}</h2>
+        </div>
+        <div class="status-pill"><span></span> Docker-ready</div>
+      </header>
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

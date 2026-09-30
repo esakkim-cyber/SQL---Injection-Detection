@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | SQLi Shield{% endblock %}
+{% block page_heading %}Security Monitoring Dashboard{% endblock %}
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+{% block content %}
+<section class="stats-row">
+  <div class="stat"><strong>{{ stats.total_events }}</strong><span>Total events</span></div>
+  <div class="stat"><strong>{{ stats.blocked_events }}</strong><span>Blocked</span></div>
+  <div class="stat"><strong>{{ stats.high_events }}</strong><span>High/Critical</span></div>
+  <div class="stat"><strong>{{ stats.avg_risk }}</strong><span>Average risk</span></div>
+</section>
+
+<section class="grid two">
+  <div class="card chart-card">
+    <h3>Severity Distribution</h3>
+    <canvas id="severityChart"></canvas>
+    <div class="fallback-bars" data-kind="severity"></div>
+  </div>
+  <div class="card chart-card">
+    <h3>Detection Methods</h3>
+    <canvas id="methodChart"></canvas>
+    <div class="fallback-bars" data-kind="methods"></div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-header">
+    <div><p class="eyebrow">Evidence Log</p><h3>Latest Security Events</h3></div>
+    <button class="btn ghost" id="seedEventsBtn">Create Demo Events</button>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Time</th><th>Mode</th><th>Payload</th><th>Methods</th><th>Risk</th><th>Severity</th><th>Action</th></tr></thead>
+      <tbody>
+      {% for event in latest_events %}
+        <tr>
+          <td>{{ event.timestamp.strftime('%Y-%m-%d %H:%M:%S') if event.timestamp else '-' }}</td>
+          <td>{{ event.mode }}</td>
+          <td><code>{{ event.payload }}</code></td>
+          <td>{{ event.detection_methods }}</td>
+          <td>{{ event.risk_score }}</td>
+          <td><span class="severity {{ event.severity|lower }}">{{ event.severity }}</span></td>
+          <td>{{ event.action_taken }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="7" class="muted">No events yet. Run the Attack Lab or Login Demo.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+<script>
+  window.DASHBOARD_STATS = {{ stats|tojson }};
+</script>
+<script defer src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

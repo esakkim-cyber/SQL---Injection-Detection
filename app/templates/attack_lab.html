@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Attack Lab | SQLi Shield{% endblock %}
+{% block page_heading %}Showcase: With and Without Prevention{% endblock %}
+{% block content %}
+<section class="card">
+  <div class="section-header">
+    <div>
+      <p class="eyebrow">Safe Demonstration</p>
+      <h3>Run predefined payloads against vulnerable and secure flows</h3>
+    </div>
+    <button class="btn primary" id="runLabBtn">Run Full Attack Lab</button>
+  </div>
+  <p class="muted">
+    The lab compares: vulnerable raw SQL, secure WAF + validation + prepared statements,
+    and a prepared-statement-only mode to prove why parameterization is essential.
+  </p>
+</section>
+
+<section class="grid two">
+  <div class="card">
+    <h3>Payload Set</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Use Case</th><th>Payload</th></tr></thead>
+        <tbody>
+        {% for case in payloads %}
+          <tr><td>{{ case.name }}</td><td><code>{{ case.payload }}</code></td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card lab-summary">
+    <h3>Expected Showcase</h3>
+    <ul>
+      <li>Vulnerable mode can be bypassed by tautology payloads.</li>
+      <li>Regex and ML detect suspicious syntax.</li>
+      <li>Mini-WAF blocks high-risk requests before database execution.</li>
+      <li>Prepared statements prevent query logic manipulation.</li>
+      <li>Dashboard and alerts capture the event evidence.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="labResults" class="card hidden">
+  <div class="section-header"><h3>Before / After Results</h3><span id="labStatus" class="status-pill">Complete</span></div>
+  <div class="table-wrap">
+    <table id="labTable">
+      <thead>
+        <tr>
+          <th>Use Case</th>
+          <th>Risk</th>
+          <th>Vulnerable Result</th>
+          <th>Secure Result</th>
+          <th>Prepared Only</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+<script defer src="{{ url_for('static', filename='js/attack_lab.js') }}"></script>
+{% endblock %}

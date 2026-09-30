@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Detection Playground | SQLi Shield{% endblock %}
+{% block page_heading %}Detection Engine Playground{% endblock %}
+{% block content %}
+<section class="card">
+  <div class="section-header">
+    <div>
+      <p class="eyebrow">Payload Analyzer</p>
+      <h3>Test regex, ML, and anomaly scoring without running a database query</h3>
+    </div>
+    <button class="btn ghost" id="fillSample">Use Sample Payload</button>
+  </div>
+  <textarea id="payloadInput" class="payload-box" placeholder="Type a normal value or SQL injection payload..."></textarea>
+  <div class="hero-actions">
+    <button class="btn primary" id="analyzeBtn">Analyze Payload</button>
+    <button class="btn ghost" id="clearBtn">Clear</button>
+  </div>
+</section>
+
+<section id="analysisOutput" class="analysis-grid hidden">
+  <div class="card">
+    <h3>Risk Summary</h3>
+    <div class="risk-meter"><div id="riskFill"></div></div>
+    <p id="riskText" class="large-status"></p>
+    <p id="recommendation" class="muted"></p>
+  </div>
+  <div class="card">
+    <h3>Detection Layers</h3>
+    <div class="mini-table">
+      <div><span>Regex</span><strong id="regexStatus">-</strong></div>
+      <div><span>ML Probability</span><strong id="mlStatus">-</strong></div>
+      <div><span>Anomaly</span><strong id="anomalyStatus">-</strong></div>
+    </div>
+  </div>
+</section>
+
+<section id="matchesSection" class="card hidden">
+  <h3>Regex Matches</h3>
+  <div class="table-wrap"><table id="matchesTable"><thead><tr><th>Rule</th><th>Description</th><th>Matched</th><th>Weight</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="featuresSection" class="card hidden">
+  <h3>ML Feature Snapshot</h3>
+  <div class="feature-grid" id="featureGrid"></div>
+</section>
+{% endblock %}

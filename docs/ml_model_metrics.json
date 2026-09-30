@@ -1,0 +1,157 @@
+{
+  "dataset_rows": 270,
+  "positive_samples": 180,
+  "negative_samples": 90,
+  "feature_names": [
+    "length",
+    "special_count",
+    "quote_count",
+    "semicolon_count",
+    "comment_count",
+    "encoded_count",
+    "equals_count",
+    "sql_keyword_hits",
+    "sql_keyword_density",
+    "boolean_logic_count",
+    "digit_count",
+    "whitespace_count",
+    "uppercase_ratio",
+    "alpha_ratio",
+    "entropy",
+    "suspicious_function_count",
+    "tautology_count",
+    "union_select_combo",
+    "information_schema_flag",
+    "comment_token_flag"
+  ],
+  "model_comparison": {
+    "RandomForest": {
+      "accuracy": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          23,
+          0
+        ],
+        [
+          0,
+          45
+        ]
+      ],
+      "classification_report": "              precision    recall  f1-score   support\n\n           0       1.00      1.00      1.00        23\n           1       1.00      1.00      1.00        45\n\n    accuracy                           1.00        68\n   macro avg       1.00      1.00      1.00        68\nweighted avg       1.00      1.00      1.00        68\n"
+    },
+    "NaiveBayes": {
+      "accuracy": 1.0,
+      "f1": 1.0,
+      "confusion_matrix": [
+        [
+          23,
+          0
+        ],
+        [
+          0,
+          45
+        ]
+      ],
+      "classification_report": "              precision    recall  f1-score   support\n\n           0       1.00      1.00      1.00        23\n           1       1.00      1.00      1.00        45\n\n    accuracy                           1.00        68\n   macro avg       1.00      1.00      1.00        68\nweighted avg       1.00      1.00      1.00        68\n"
+    },
+    "SVM": {
+      "accuracy": 0.9706,
+      "f1": 0.9773,
+      "confusion_matrix": [
+        [
+          23,
+          0
+        ],
+        [
+          2,
+          43
+        ]
+      ],
+      "classification_report": "              precision    recall  f1-score   support\n\n           0       0.92      1.00      0.96        23\n           1       1.00      0.96      0.98        45\n\n    accuracy                           0.97        68\n   macro avg       0.96      0.98      0.97        68\nweighted avg       0.97      0.97      0.97        68\n"
+    }
+  },
+  "deployed_model": "RandomForest",
+  "feature_importance": [
+    {
+      "feature": "special_count",
+      "importance": 0.2187
+    },
+    {
+      "feature": "quote_count",
+      "importance": 0.1418
+    },
+    {
+      "feature": "comment_count",
+      "importance": 0.0935
+    },
+    {
+      "feature": "alpha_ratio",
+      "importance": 0.0934
+    },
+    {
+      "feature": "comment_token_flag",
+      "importance": 0.0859
+    },
+    {
+      "feature": "uppercase_ratio",
+      "importance": 0.0614
+    },
+    {
+      "feature": "sql_keyword_density",
+      "importance": 0.048
+    },
+    {
+      "feature": "sql_keyword_hits",
+      "importance": 0.0458
+    },
+    {
+      "feature": "whitespace_count",
+      "importance": 0.044
+    },
+    {
+      "feature": "equals_count",
+      "importance": 0.033
+    },
+    {
+      "feature": "digit_count",
+      "importance": 0.0291
+    },
+    {
+      "feature": "encoded_count",
+      "importance": 0.0278
+    },
+    {
+      "feature": "length",
+      "importance": 0.0231
+    },
+    {
+      "feature": "tautology_count",
+      "importance": 0.0195
+    },
+    {
+      "feature": "boolean_logic_count",
+      "importance": 0.0164
+    },
+    {
+      "feature": "entropy",
+      "importance": 0.012
+    },
+    {
+      "feature": "semicolon_count",
+      "importance": 0.0058
+    },
+    {
+      "feature": "union_select_combo",
+      "importance": 0.0006
+    },
+    {
+      "feature": "information_schema_flag",
+      "importance": 0.0
+    },
+    {
+      "feature": "suspicious_function_count",
+      "importance": 0.0
+    }
+  ]
+}

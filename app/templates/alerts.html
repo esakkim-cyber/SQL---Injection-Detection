@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Alerts | SQLi Shield{% endblock %}
+{% block page_heading %}Alert Center{% endblock %}
+{% block content %}
+<section class="card">
+  <div class="section-header">
+    <div>
+      <p class="eyebrow">Monitoring</p>
+      <h3>High-risk attacks generate dashboard alerts automatically</h3>
+    </div>
+    <span class="status-pill"><span></span> Optional email / Slack / Telegram</span>
+  </div>
+  <p class="muted">
+    External alert channels are configured through environment variables. The database alert center works without secrets.
+  </p>
+</section>
+
+<section class="card">
+  <h3>Latest Alerts</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Time</th><th>Severity</th><th>Title</th><th>Message</th><th>Channel</th></tr></thead>
+      <tbody>
+      {% for alert in alerts %}
+        <tr>
+          <td>{{ alert.timestamp.strftime('%Y-%m-%d %H:%M:%S') if alert.timestamp else '-' }}</td>
+          <td><span class="severity {{ alert.severity|lower }}">{{ alert.severity }}</span></td>
+          <td>{{ alert.title }}</td>
+          <td><pre class="alert-message">{{ alert.message }}</pre></td>
+          <td>{{ alert.channel }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="5" class="muted">No alerts yet. Run a high-risk payload to generate one.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

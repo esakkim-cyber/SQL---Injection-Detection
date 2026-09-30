@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Docs | SQLi Shield{% endblock %}
+{% block page_heading %}Project Documentation Map{% endblock %}
+{% block content %}
+<section class="grid two">
+  <article class="card">
+    <h3>Defense Methods Implemented</h3>
+    <ul>
+      <li>Regex-based signature detection.</li>
+      <li>Random Forest ML classifier using explainable features.</li>
+      <li>Behavioral anomaly detection for request bursts and repeated failed logins.</li>
+      <li>Mini-WAF route-level blocking.</li>
+      <li>Whitelist validation for usernames.</li>
+      <li>Parameterized SQL queries and SQLAlchemy.</li>
+      <li>Password hashing in the secure authentication path.</li>
+    </ul>
+  </article>
+  <article class="card">
+    <h3>Submission Files</h3>
+    <ul>
+      <li><code>README.md</code> - project overview and quick run.</li>
+      <li><code>docs/RUNNING_GUIDE.md</code> - detailed step-by-step instructions.</li>
+      <li><code>docs/PROJECT_DOCUMENTATION.md</code> - code and architecture explanation.</li>
+      <li><code>docs/SCREENSHOT_GUIDE.md</code> - screenshots to capture for report.</li>
+      <li><code>docs/REPORT_*.docx</code> - university-style research report.</li>
+      <li><code>docs/PRESENTATION_*.pptx</code> - final presentation slides.</li>
+    </ul>
+  </article>
+</section>
+{% endblock %}

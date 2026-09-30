@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Login Demo | SQLi Shield{% endblock %}
+{% block page_heading %}Before / After Login Demonstration{% endblock %}
+{% block content %}
+<section class="split-grid">
+  <div class="card">
+    <h3>Try Credentials or Payloads</h3>
+    <p class="muted">Valid users: <code>admin/password123</code>, <code>alice/alice123</code>, <code>bob/bob123</code>.</p>
+    <form method="post" class="form-stack">
+      <label>Demo Mode</label>
+      <div class="radio-grid">
+        <label><input type="radio" name="mode" value="vulnerable" {% if mode == 'vulnerable' %}checked{% endif %}> Vulnerable raw SQL</label>
+        <label><input type="radio" name="mode" value="secure" {% if mode == 'secure' %}checked{% endif %}> Secure WAF + prepared</label>
+        <label><input type="radio" name="mode" value="parameterized_only" {% if mode == 'parameterized_only' %}checked{% endif %}> Prepared only comparison</label>
+      </div>
+      <label for="username">Username / payload</label>
+      <input id="username" name="username" value="{{ username }}" placeholder="alice or ' OR '1'='1' -- " autocomplete="off">
+      <label for="password">Password</label>
+      <input id="password" name="password" value="{{ password }}" placeholder="alice123 or wrong" autocomplete="off">
+      <button class="btn primary" type="submit">Run Login Test</button>
+    </form>
+  </div>
+
+  <div class="card result-card">
+    <h3>Result</h3>
+    {% if result %}
+      <div class="result {{ 'success' if result.success else 'danger' }}">
+        <strong>{{ 'Success' if result.success else 'Blocked / Failed' }}</strong>
+        <p>{{ result.message }}</p>
+      </div>
+      {% if result.user %}
+      <div class="mini-table">
+        <div><span>User</span><strong>{{ result.user.username }}</strong></div>
+        <div><span>Name</span><strong>{{ result.user.full_name }}</strong></div>
+        <div><span>Role</span><strong>{{ result.user.role }}</strong></div>
+      </div>
+      {% endif %}
+      <h4>Query Preview</h4>
+      <pre>{{ result.query_preview }}</pre>
+    {% else %}
+      <p class="muted">Submit a normal login or an injection payload to view the result.</p>
+    {% endif %}
+  </div>
+</section>
+
+{% if detection %}
+<section class="card">
+  <div class="section-header">
+    <div>
+      <p class="eyebrow">Detection Report</p>
+      <h3>Risk Score: {{ detection.risk_score }} / 100 - {{ detection.severity }}</h3>
+    </div>
+    <span class="severity {{ detection.severity|lower }}">{{ detection.severity }}</span>
+  </div>
+  <div class="grid three compact">
+    <div class="detector-box {{ 'on' if detection.regex_detected else '' }}"><strong>Regex</strong><span>{{ 'Detected' if detection.regex_detected else 'Clean' }}</span></div>
+    <div class="detector-box {{ 'on' if detection.ml_detected else '' }}"><strong>ML</strong><span>{{ detection.ml_probability }}</span></div>
+    <div class="detector-box {{ 'on' if detection.anomaly_detected else '' }}"><strong>Anomaly</strong><span>{{ 'Detected' if detection.anomaly_detected else 'Normal' }}</span></div>
+  </div>
+  <p>{{ detection.recommendation }}</p>
+  {% if detection.regex_matches %}
+  <h4>Matched Regex Rules</h4>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Rule</th><th>Why it matters</th><th>Matched</th><th>Weight</th></tr></thead>
+      <tbody>
+      {% for match in detection.regex_matches %}
+        <tr><td>{{ match.pattern_name }}</td><td>{{ match.description }}</td><td><code>{{ match.matched_text }}</code></td><td>{{ match.weight }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+</section>
+{% endif %}
+{% endblock %}
