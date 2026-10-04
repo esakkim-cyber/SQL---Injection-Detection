@@ -145,7 +145,3 @@ environment-driven configuration throughout.
 
 OWASP SQL Injection Prevention Cheat Sheet, OWASP Top 10 A03 (Injection), OWASP
 Query Parameterization Cheat Sheet, NIST SSDF, scikit-learn documentation.
-
-## Licence
-
-MIT — see [LICENSE](LICENSE).
